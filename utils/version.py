@@ -163,10 +163,13 @@ class MADVersion(object):
                 "ADD lastPogoReboot varchar(50) NULL DEFAULT NULL"
             )
             column_exist = self.dbwrapper.check_column_exists(
-                'trs_status', 'lastPogoReboot')
+                'trs_status', '
+                
+                
+                boot')
             if column_exist == 0:
                 try:
-                    self.wrapper.execute(alter_query, commit=True)
+                    self.dbwrapper.execute(alter_query, commit=True)
                 except Exception as e:
                     logger.info("Unexpected error: {}", e)
 
