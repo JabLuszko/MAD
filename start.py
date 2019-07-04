@@ -280,14 +280,6 @@ if __name__ == "__main__":
         t_observ.daemon = True
         t_observ.start()
 
-    if args.statistic:
-        if args.only_ocr or args.only_scan:
-            logger.info("Starting statistics collector")
-            t_usage = Thread(name='system',
-                             target=get_system_infos, args=(db_wrapper,))
-            t_usage.daemon = True
-            t_usage.start()
-
     if args.with_madmin:
         from madmin.madmin import madmin_start
         logger.info("Starting Madmin on Port: {}", str(args.madmin_port))
@@ -295,6 +287,14 @@ if __name__ == "__main__":
                           args=(args, db_wrapper, ws_server, mapping_manager))
         t_madmin.daemon = True
         t_madmin.start()
+        
+    if args.statistic:
+        if args.only_ocr or args.only_scan:
+            logger.info("Starting statistics collector")
+            t_usage = Thread(name='system',
+                             target=get_system_infos, args=(db_wrapper,))
+            t_usage.daemon = True
+            t_usage.start()
 
     logger.info("Running.....")
     try:
