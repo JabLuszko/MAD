@@ -106,6 +106,7 @@
                 "post_walk_delay": 0,
                 "reboot": false,
                 "restart_pogo": 0,
+                "injection_count_reboot": 10,
                 "walk_after_teleport_distance": 1
             },
             "walker": "test123"
@@ -121,6 +122,7 @@
                 "reboot": true,
                 "reboot_thresh": 10,
                 "restart_pogo": 0,
+                "injection_count_reboot": 10,
                 "walk_after_teleport_distance": 1
             },
             "walker": "iv_total"
