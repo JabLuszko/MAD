@@ -126,13 +126,15 @@ class MITMBase(WorkerBase):
 
     def _wait_for_injection(self):
         self._not_injected_count = 0
+        injection_thresh_reboot = self.get_devicesettings_value("injection_thresh_reboot", 20)
         while not self._mitm_mapper.get_injection_status(self._id):
             self._check_ggl_login()
-            if self._not_injected_count >= 20:
+            if self._not_injected_count >= injection_thresh_reboot:
                 logger.error("Worker {} not get injected in time - reboot", str(self._id))
                 self._reboot(self._mitm_mapper)
                 return False
-            logger.info("Worker {} is not injected till now (Count: {})", str(self._id), str(self._not_injected_count))
+            logger.info("Worker {} is not injected till now (Count: {}/{})",
+                        str(self._id), str(self._not_injected_count), str(injection_thresh_reboot))
             if self._stop_worker_event.isSet():
                 logger.error("Worker {} get killed while waiting for injection", str(self._id))
                 return False
