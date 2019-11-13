@@ -607,8 +607,12 @@ class WorkerQuests(MITMBase):
                 if fort_type == 0:
                     self._db_wrapper.delete_stop(latitude, longitude)
                     return False, True
-
-                if fort.get('pokestop_display', {}).get('incident_start_ms', 0) > 0:
+                
+                rocket_incident_diff_ms = 0
+                if len(fort.get('pokestop_displays', [])) > 0:
+                    rocket_incident_diff_ms = fort.get('pokestop_displays')[0].get('incident_expiration_ms', 0) - fort.get('pokestop_displays')[0].get('incident_start_ms', 0)
+                    
+                if fort.get('pokestop_display', {}).get('incident_start_ms', 0) > 0 or rocket_incident_diff_ms > 3600000:
                     logger.info("Stop {}, {} is rocketized - processing dialog after getting data"
                                 .format(str(latitude), str(longitude)))
                     self._rocket = True
