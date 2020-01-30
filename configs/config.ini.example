@@ -7,10 +7,8 @@
 
 # MySQL Settings
 ######################
-
 # You really need to fill those. Most of the times you want to have frontend (RM/PMSF) already installed before running MAD.
 # You need to have MySQL Database and User/Grants already created!
-# If you just need clean schema you can install it via scripts/databasesetup.py
 
 #dbip:                       # IP adress or hostname of the mysql server
 #dbusername:                 # USERname for database
@@ -22,27 +20,23 @@
 
 # Websocket Settings (RGC receiver)
 ######################
-
 #ws_ip:                     # IP for websockt to listen on (for RGC). Default: 0.0.0.0
 #ws_port:                   # Highly recommended to change. Port of the websocket to listen on. Default: 8080
 #websocket_command_timeout: # The max time to wait for a command to return (in seconds). Default: 30 seconds.
 
 # MITM Receiver (Pogodroid data)
 ######################
-
 #mitmreceiver_ip:           # IP to listen on for proto data (MITM data). Default: 0.0.0.0 (every interface).
 #mitmreceiver_port:         # Highly recommended to change. Port to listen on for proto data (MITM data). Default: 8000.
 #mitmreceiver_data_workers: # Amount of workers to work off the data that queues up. Default: 2
 
 # Walk Settings
 ######################
-
 #initial_restart:            # Initial Pogo restart when scanner starts. (Default: true)
 #delay_after_hatch:          # Delay in minutes to wait before moving to the location of a hatched egg. Raidbosses do not necessarily appear immediately. (Default: 3.5)
 
 # path settings
 ######################
-
 #pogoasset:                  # Path to Pogo Assets: See: https://github.com/ZeChrales/PogoAssets/ (git clone)
 #temp_path:                  # Path for generated files while detecting raids (Default: temp/)
 #file_path:                  # Defines directory to save worker stats- and position files and calculated routes (Default: files/)
@@ -51,7 +45,6 @@
 
 # other settings
 ######################
-
 #last_scanned                # Submit last scanned locations to RM database (if your fork support this!)
 #npValue:                    # Matching Zoom - Max Value (Default: 0.5 [for width = 720px]. 1.5 for width = 1080px)
 #npFrom:                     # Matching Zoom - Start Value (Default: 0.2 [for width = 720px]. 0.5 for width = 1080px)
@@ -64,10 +57,13 @@
 #mitm_status_password: SetPls # Header Authorization password for MITM /status/ page
 #advanced_config             # Enables additional settings when creating and editing areas
 
+# Multi-instance related settings
+######################
+#status-name:                # Setup name for this instance - if not set: PID of the process will be used
+
 # MADmin statistics
 ######################
 #statistic                   # Activate system statistics
-#status-name:                # Setup name for this instance - if not set: PID of the process will be used
 #stat_gc                     # Enable statistics for collected object (garbage collector) - if you really need this info
 #statistic_interval:         # Update interval for the usage generator in seconds (Default: 60)
 
@@ -123,14 +119,8 @@
 
 # Dynamic Rarity
 ######################
-
 #rarity_hours:               # Set the number of hours for the calculation of pokemon rarity (Default: 72)
 #rarity_update_frequency:    # Update frequency for dynamic rarity in minutes (Default: 60)
-
-# Auto Hatch
-######################
-#auto_hatch                  # Activate auto hatch of level 5 eggs
-#auto_hatch_number           # Auto hatch of level 5 Pokemon ID
 
 # Logging
 ######################
