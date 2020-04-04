@@ -60,6 +60,9 @@ class MitmDataProcessor(Process):
             logger.debug5("Received raw payload: {}", data["payload"])
 
         if data_type and not raw:
+            logger.warning("Olewam WSZYSTKIE dane od {} - RDM", origin)
+            return
+        
             logger.debug2("Running stats collector of {}".format(origin))
             if self.__application_args.game_stats:
                 self.__mitm_mapper.run_stats_collector(origin)
