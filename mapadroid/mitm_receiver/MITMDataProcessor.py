@@ -69,7 +69,11 @@ class MitmDataProcessor(Process):
                 # process GetMapObject
                 logger.success("Processing GMO received from {}. Received at {}", str(
                     origin), str(datetime.fromtimestamp(received_timestamp)))
-
+                
+                if origin in ["nazwa1", "nazwa2", "nazwa3"]:
+                    logger.warning("Olewam dane od {} - RDM", origin)
+                    return
+                
                 if self.__application_args.weather:
                     self.__db_submit.weather(origin, data["payload"], received_timestamp)
 
