@@ -20,6 +20,10 @@ def AreaFactory(data_manager, identifier: Optional[int] = None, mode: Optional[s
         sql = "SELECT `mode` FROM `settings_area` WHERE `area_id` = %s and `instance_id` = %s"
         mode = data_manager.dbc.autofetch_value(sql, args=(identifier, data_manager.instance_id))
     try:
+        print("Mode:")
+        print(mode)
+        print("identifier:")
+        print(identifier)
         return AREA_MAPPINGS[mode](data_manager, identifier=identifier)
     except KeyError:
         if identifier is not None:
