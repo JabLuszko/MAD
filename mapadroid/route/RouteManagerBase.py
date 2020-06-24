@@ -535,7 +535,7 @@ class RouteManagerBase(ABC):
         if not self._is_started:
             self.logger.info("Starting routemanager in get_next_location")
             if not self._start_routemanager():
-                self.logger.info('No coords available - quitting worker {}', origin)
+                self.logger.info("No coords available - quitting worker {}", origin)
                 return None
 
         if self._start_calc:
@@ -827,7 +827,7 @@ class RouteManagerBase(ABC):
             self.logger.info("No more coords - breakup")
             return False
         if self.mode in ("iv_mitm", "idle"):
-            self.logger.info('Not updating routepools in iv_mitm mode')
+            self.logger.info("Not updating routepools in iv_mitm mode")
             return True
         with self._manager_mutex and self._workers_registered_mutex:
             self.logger.debug("Updating all routepools")
@@ -850,7 +850,7 @@ class RouteManagerBase(ABC):
                     if new_subroute_length == 0:
                         return False
                 except Exception as e:
-                    self.logger.info('Something happens with the worker - breakup')
+                    self.logger.info("Something happens with the worker - breakup")
                     return False
             i: int = 0
             temp_total_round: collections.deque = collections.deque(self._current_route_round_coords)
