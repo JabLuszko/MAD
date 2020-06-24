@@ -258,7 +258,7 @@ class WorkerBase(AbstractWorker):
             self.logger.info('Worker already stopped - waiting for it')
         else:
             self._stop_worker_event.set()
-            self.logger.warning("Worker {} top called")
+            self.logger.warning("Worker stop called")
 
     def _internal_pre_work(self):
         current_thread().name = self._origin
