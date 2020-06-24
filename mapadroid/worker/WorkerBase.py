@@ -306,8 +306,8 @@ class WorkerBase(AbstractWorker):
                 self._turn_screen_on_and_start_pogo()
                 self._get_screen_size()
                 # register worker  in routemanager
-                self.logger.info("Try to register in Routemanager {}",
-                                 str(self._mapping_manager.routemanager_get_name(self._routemanager_name)))
+                self.logger.info("Worker trying to register in Routemanager {}",
+                                 self._mapping_manager.routemanager_get_name(self._routemanager_name))
                 self._mapping_manager.register_worker_to_routemanager(self._routemanager_name, self._origin)
             except WebsocketWorkerRemovedException:
                 self.logger.error("Timeout during init of worker")
@@ -463,7 +463,7 @@ class WorkerBase(AbstractWorker):
                         WebsocketWorkerConnectionClosedException):
                     self.logger.warning("Worker failed running post_move_location_routine, stopping worker")
                     break
-                self.logger.info("Worker finished iteration, continuing work")
+                self.logger.debug("Worker finished iteration, continuing work")
 
         self._internal_cleanup()
 
@@ -490,7 +490,7 @@ class WorkerBase(AbstractWorker):
             self.logger.warning("A other Event has started - leaving now")
             return False
         if mode == "countdown":
-            self.logger.info("Checking walker mode 'countdown'")
+            self.logger.debug("Checking walker mode 'countdown'")
             countdown = self._walker['walkervalue']
             if not countdown:
                 self.logger.error("No Value for Mode - check your settings! Killing worker")
