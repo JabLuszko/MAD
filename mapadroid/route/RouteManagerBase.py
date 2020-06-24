@@ -694,7 +694,7 @@ class RouteManagerBase(ABC):
                 elif len(self._routepool[origin].queue) == 0 and len(self._routepool[origin].subroute) > 0:
                     [self._routepool[origin].queue.append(i) for i in self._routepool[origin].subroute]
                 elif len(self._routepool[origin].queue) > 0 and len(self._routepool[origin].subroute) > 0:
-                    self.logger.info("Getting new coords")
+                    self.logger.debug("Getting new coords")
                 else:
                     self.logger.info("Not getting new coords - leaving worker")
                     return None
@@ -712,7 +712,7 @@ class RouteManagerBase(ABC):
                         and not self.init:
                     self._current_route_round_coords.remove(next_coord)
                 self.logger.info("Moving on with location {}, {} [{} coords left (Workerpool)]", next_coord.lat,
-                                 next_coord.lng, str(len(self._routepool[origin].queue) + 1))
+                                 next_coord.lng, len(self._routepool[origin].queue)+1)
                 self._last_round_prio[origin] = False
                 self._routepool[origin].last_round_prio_event = False
                 next_coord = self._check_coord_and_maybe_del(next_coord, origin)
@@ -836,9 +836,8 @@ class RouteManagerBase(ABC):
                 self.logger.info("No registered workers, aborting __worker_changed_update_routepools...")
                 return False
 
-            self.logger.debug("Current route for all workers: {}", str(self._current_route_round_coords))
-            self.logger.info(
-                "Current route for all workers length: {}", str(len(self._current_route_round_coords)))
+            self.logger.debug("Current route for all workers: {}", self._current_route_round_coords)
+            self.logger.debug("Current route length: {}", len(self._current_route_round_coords))
 
             if workers > len(self._current_route_round_coords):
                 less_coords = True
@@ -902,7 +901,7 @@ class RouteManagerBase(ABC):
                             origin)
                         # apparently nothing changed
                         if compare(new_subroute, entry.subroute):
-                            self.logger.info("Apparently no changes in subroutes...")
+                            self.logger.debug("Apparently no changes in subroutes...")
                         else:
                             self.logger.info("Subroute of {} has changed. Replacing entirely", origin)
                             # TODO: what now?
