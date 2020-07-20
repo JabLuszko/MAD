@@ -272,7 +272,7 @@ class WebsocketServer(object):
         if not self.__data_manager.is_device_active(origin):
             origin_logger.warning('Origin is currently paused. Unpause through MADmin to begin working')
             return (origin, False)
-        origin_logger.info("Client registering")
+        origin_logger.info("Client '{}' registering", origin)
         if self.__mapping_manager is None:
             origin_logger.warning("No configuration has been defined.  Please define in MADmin and click "
                                   "'APPLY SETTINGS'")
