@@ -492,36 +492,36 @@ class AbstractMitmBaseStrategy(AbstractWorkerStrategy, ABC):
         injected_settings["scanmode"] = scanmode
 
         # if iv ids are specified we will sync the workers encountered ids to newest time.
-        if ids_iv:
-            async with self._db_wrapper as session, session:
-                (self._latest_encounter_update, encounter_ids) = await PokemonHelper.get_encountered(
-                    session,
-                    await self._mapping_manager.routemanager_get_geofence_helper(self._area_id),
-                    self._latest_encounter_update)
-            if encounter_ids:
-                logger.debug("Found {} new encounter_ids", len(encounter_ids))
-            # str keys since protobuf requires string keys for json...
-            encounter_ids_prepared: Dict[str, int] = {str(encounter_id): timestamp for encounter_id, timestamp in
-                                                      encounter_ids.items()}
-            self._encounter_ids: Dict[str, int] = {**encounter_ids_prepared, **self._encounter_ids}
-            # allow one minute extra life time, because the clock on some devices differs, newer got why this problem
-            # apears but it is a fact.
-            max_age_ = DatetimeWrapper.now().timestamp()
-            remove: List[str] = []
-            for key, value in self._encounter_ids.items():
-                if int(value) < max_age_:
-                    remove.append(key)
+        #if ids_iv:
+        #    async with self._db_wrapper as session, session:
+        #        (self._latest_encounter_update, encounter_ids) = await PokemonHelper.get_encountered(
+        #            session,
+        #            await self._mapping_manager.routemanager_get_geofence_helper(self._area_id),
+        #            self._latest_encounter_update)
+        #    if encounter_ids:
+        #        logger.debug("Found {} new encounter_ids", len(encounter_ids))
+        #    # str keys since protobuf requires string keys for json...
+        #    encounter_ids_prepared: Dict[str, int] = {str(encounter_id): timestamp for encounter_id, timestamp in
+        #                                              encounter_ids.items()}
+        #    self._encounter_ids: Dict[str, int] = {**encounter_ids_prepared, **self._encounter_ids}
+        #    # allow one minute extra life time, because the clock on some devices differs, newer got why this problem
+        #    # apears but it is a fact.
+        #    max_age_ = DatetimeWrapper.now().timestamp()
+        #    remove: List[str] = []
+        #    for key, value in self._encounter_ids.items():
+        #        if int(value) < max_age_:
+        #            remove.append(key)
 
-            for key in remove:
-                del self._encounter_ids[key]
+        #    for key in remove:
+        #        del self._encounter_ids[key]
 
-            logger.debug("Encounter list len: {}", len(self._encounter_ids))
-            # TODO: here we have the latest update of encountered mons.
-            # self._encounter_ids contains the complete dict.
-            # encounter_ids only contains the newest update.
+        #    logger.debug("Encounter list len: {}", len(self._encounter_ids))
+        #    # TODO: here we have the latest update of encountered mons.
+        #    # self._encounter_ids contains the complete dict.
+        #    # encounter_ids only contains the newest update.
         unquest_stops: Union[List, Dict] = list(await self._get_unquest_stops())
-        await self._mitm_mapper.update_latest(worker=self._worker_state.origin, key="ids_encountered",
-                                              value=self._encounter_ids)
+        #await self._mitm_mapper.update_latest(worker=self._worker_state.origin, key="ids_encountered",
+        #                                      value=self._encounter_ids)
         await self._mitm_mapper.update_latest(worker=self._worker_state.origin, key="ids_iv", value=ids_iv)
         await self._mitm_mapper.update_latest(worker=self._worker_state.origin, key="unquest_stops",
                                               value=unquest_stops)
