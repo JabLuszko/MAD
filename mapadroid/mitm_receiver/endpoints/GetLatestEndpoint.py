@@ -39,11 +39,11 @@ class GetLatestEndpoint(AbstractMitmReceiverRootEndpoint):
         level_mode = await self._get_mapping_manager().routemanager_of_origin_is_levelmode(origin)
         quest_layer_to_scan: int = await self._get_mapping_manager().routemanager_get_quest_layer_to_scan_of_origin(origin)
 
-        ids_encountered_entry: Optional[LatestMitmDataEntry] = await self._get_mitm_mapper().request_latest(
-            origin, "ids_encountered")
+        #ids_encountered_entry: Optional[LatestMitmDataEntry] = await self._get_mitm_mapper().request_latest(
+        #    origin, "ids_encountered")
         ids_encountered = None
-        if ids_encountered_entry is not None:
-            ids_encountered = ids_encountered_entry.data
+        #if ids_encountered_entry is not None:
+        #    ids_encountered = ids_encountered_entry.data
 
         unquest_stops_res: List[str] = []
         unquest_stops: Optional[LatestMitmDataEntry] = await self._get_mitm_mapper().request_latest(
