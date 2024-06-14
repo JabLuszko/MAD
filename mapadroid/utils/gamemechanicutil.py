@@ -9,7 +9,7 @@ from mapadroid.utils.madGlobals import QuestLayer
 import mapadroid.mitm_receiver.protos.Rpc_pb2 as pogoprotos
 
 
-def int_shit_unsinged(value_id: int) -> int:
+def int_shit_unsigned(value_id: int) -> int:
     if not isinstance(value_id, int):
         logger.warning("Not an [int] provided, returning the same value. {} {}", value_id, type(value_id))
         return value_id
