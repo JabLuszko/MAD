@@ -9,6 +9,16 @@ from mapadroid.utils.madGlobals import QuestLayer
 import mapadroid.mitm_receiver.protos.Rpc_pb2 as pogoprotos
 
 
+def int_shit_unsinged(value_id: int) -> int:
+    if not isinstance(value_id, int):
+        logger.warning("Not an [int] provided, returning the same value. {} {}", value_id, type(value_id))
+        return value_id
+        
+    if value_id < 0:
+        return value_id + 2 ** 64
+        
+    return value_id
+    
 def calculate_mon_level(cp_multiplier):
     if cp_multiplier < 0.734:
         pokemon_level = 58.35178527 * cp_multiplier * cp_multiplier - 2.838007664 * cp_multiplier + 0.8539209906
